@@ -24,4 +24,4 @@ class Pet(db.Model):
 
     notes = db.Column(db.Text, nullable=True)
 
-    available = db.Column(db.Booean, default=True, nullable=False)
+    available = db.Column(db.Boolean, default=True, nullable=False)
