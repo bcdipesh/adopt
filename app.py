@@ -72,3 +72,24 @@ def display_edit_form(pet_id):
     form = PetForm(obj=pet)
 
     return render_template("pet_details.html", form=form, pet_id=pet.id)
+
+
+@app.route("/<int:pet_id>", methods=["POST"])
+def update_pet(pet_id):
+    """Handle edit form"""
+
+    pet = Pet.query.get_or_404(pet_id)
+    form = PetForm()
+
+    if form.validate_on_submit():
+        pet.name = form.name.data
+        pet.species = form.species.data
+        pet.photo_url = form.photo_url.data
+        pet.age = form.age.data
+        pet.notes = form.notes.data
+
+        db.session.commit()
+
+        return redirect("/")
+    else:
+        return redirect(f"/{pet_id}")
