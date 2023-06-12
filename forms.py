@@ -3,8 +3,8 @@ from wtforms import StringField, IntegerField
 from wtforms.validators import InputRequired, Optional, AnyOf, NumberRange, URL
 
 
-class AddPetForm(FlaskForm):
-    """From for adding pet."""
+class PetForm(FlaskForm):
+    """From for adding and updating a pet."""
 
     name = StringField("Pet name", validators=[InputRequired()])
     species = StringField(

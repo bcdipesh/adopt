@@ -10,6 +10,7 @@
         <div class="card-body">
             <h5 class="card-title">{{pet.name}} {{"is available" if pet.available else "is unavailable"}}</h5>
         </div>
+        <a class="btn btn-primary" href="/{{pet.id}}">View Pet</a>
     </div>
     {% endfor %}
 </div>

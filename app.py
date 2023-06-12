@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, redirect
 from models import db, connect_db, Pet
-from forms import AddPetForm
+from forms import PetForm
 from dotenv import load_dotenv
 import os
 
@@ -36,7 +36,7 @@ def home_page():
 def add_pet_form():
     """Display form for adding pet"""
 
-    form = AddPetForm()
+    form = PetForm()
 
     return render_template("add_pet_form.html", form=form)
 
@@ -45,7 +45,7 @@ def add_pet_form():
 def create_pet():
     """Handler for add pet form"""
 
-    form = AddPetForm()
+    form = PetForm()
 
     if form.validate_on_submit():
         name = form.name.data
@@ -62,3 +62,13 @@ def create_pet():
         return redirect("/")
     else:
         return render_template("add_pet_form.html", form=form)
+
+
+@app.route("/<int:pet_id>")
+def display_edit_form(pet_id):
+    """Display edit form"""
+
+    pet = Pet.query.get_or_404(pet_id)
+    form = PetForm(obj=pet)
+
+    return render_template("pet_details.html", form=form, pet_id=pet.id)
